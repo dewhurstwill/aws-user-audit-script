@@ -1,7 +1,6 @@
 # Imports 
-import boto3, csv, os
-from datetime import datetime
- 
+import boto3, csv, os, datetime
+
 iam = boto3.client("iam")
 
 userList = []
@@ -40,13 +39,13 @@ for item in userList:
             accessKeyInfo.append(newEntry)
 
 # Create CSV's
-# Console Access CSV
 if os.path.exists("console-access-audit.csv"):
     os.remove("console-access-audit.csv")
 
 if os.path.exists("programmatic-access-audit.csv"):
     os.remove("programmatic-access-audit.csv")
 
+# Console Access CSV
 with open("console-access-audit.csv", 'w', newline='') as consoleFile:
     writer = csv.writer(consoleFile)
     writer.writerows(userAccountInfo)
