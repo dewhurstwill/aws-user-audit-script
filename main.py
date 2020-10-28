@@ -1,15 +1,11 @@
 # Imports 
-import boto3
-import csv
-import os
-from datetime import datetime
+import boto3, csv, os, datetime
 
 iam = boto3.client("iam")
 
 userList = []
 userAccountInfo = [['User', 'Date Created', 'Password Last Used']] 
 accessKeyInfo = [['User', 'Access Key ID', 'Status', 'Date Created', 'Last Used']]
-
 
 # Get list of users
 paginator = iam.get_paginator('list_users')
@@ -24,8 +20,6 @@ for response in paginator.paginate():
         else:
             newRow.append("Password Never Used")
         userAccountInfo.append(newRow)
-
-
 
 # Get Access Keys from list of users
 for item in userList:
@@ -44,17 +38,14 @@ for item in userList:
                 newEntry.append("Key Never Used")
             accessKeyInfo.append(newEntry)
 
-
-
-
 # Create CSV's
-# Console Access CSV
 if os.path.exists("console-access-audit.csv"):
     os.remove("console-access-audit.csv")
 
 if os.path.exists("programmatic-access-audit.csv"):
     os.remove("programmatic-access-audit.csv")
 
+# Console Access CSV
 with open("console-access-audit.csv", 'w', newline='') as consoleFile:
     writer = csv.writer(consoleFile)
     writer.writerows(userAccountInfo)
