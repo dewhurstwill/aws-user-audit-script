@@ -1,9 +1,9 @@
 # Account Audit Script
 
 ## Prerequisites
-- Python 3
-- pip
-- awscli
+- [Python 3](https://www.python.org/downloads/)
+- [pip](https://www.w3schools.com/python/python_pip.asp)
+- [awscli](https://aws.amazon.com/cli/)
 
 ## Installation and Usage
 
